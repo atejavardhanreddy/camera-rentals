@@ -40,16 +40,8 @@ export const imageSizes = {
   },
 }
 
-// Critical CSS paths to preload
-export const criticalAssets = [
-  // Preload the logo
-  {
-    rel: "preload",
-    href: "/logo.png",
-    as: "image",
-    type: "image/png",
-  },
-]
+// Assets to preload
+export const criticalAssets: { rel: string; href: string; as?: string; type?: string }[] = []
 
 // Font display strategies
 export const fontDisplaySettings = {

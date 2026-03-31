@@ -4,10 +4,11 @@ import { Black_Ops_One, Quantico, Roboto_Mono } from "next/font/google"
 import "./globals.css"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import BackToTop from "@/components/back-to-top"
 import LocationAreas from "@/components/location-areas"
 import { ThemeProvider } from "@/components/theme-provider"
 import PageTransition from "@/components/page-transition"
-import { OrganizationSchema, LocalBusinessSchema } from "@/components/structured-data"
+import { OrganizationSchema, LocalBusinessSchema, WebSiteSchema } from "@/components/structured-data"
 import { siteConfig, generateViewport } from "@/lib/seo-config"
 import { criticalAssets } from "@/lib/performance"
 
@@ -68,19 +69,13 @@ export const metadata: Metadata = {
     creator: "@penmenstudios",
   },
   other: {
-    "apple-mobile-web-app-capable": "yes",
+    "mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
     "format-detection": "telephone=no",
   },
   icons: {
-    // Explicitly define icons for better search index recognition
-    icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "any", rel: "icon" }, // Assuming a favicon.ico might also exist or be generated
-    ],
-    apple: "/apple-touch-icon.png", // Assuming an apple-touch-icon.png might exist
+    icon: { url: "/icon.svg", type: "image/svg+xml" },
   },
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -89,7 +84,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
       <head>
         {/* Preload critical assets */}
         {criticalAssets.map((asset, index) => (
@@ -98,14 +93,16 @@ export default function RootLayout({
 
         <OrganizationSchema />
         <LocalBusinessSchema />
+        <WebSiteSchema />
       </head>
-      <body className={`${blackOpsOne.variable} ${quantico.variable} ${robotoMono.variable} font-body`}>
-        <ThemeProvider defaultTheme="dark" attribute="class">
+      <body className={`${blackOpsOne.variable} ${quantico.variable} ${robotoMono.variable} font-body overflow-x-hidden`}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           <div className="flex min-h-screen flex-col bg-black">
             <Header />
             <main className="flex-1">
               <PageTransition>{children}</PageTransition>
             </main>
+            <BackToTop />
             <LocationAreas />
             <Footer />
           </div>

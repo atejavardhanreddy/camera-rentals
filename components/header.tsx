@@ -83,13 +83,13 @@ export default function Header() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 border-b border-zinc-800 bg-black">
+    <header className="sticky top-0 z-50 glass-effect">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2" onClick={() => pathname === "/" && scrollToTop()}>
+          <Link href="/" className="flex items-center gap-2 group" onClick={() => pathname === "/" && scrollToTop()}>
             <div className="flex flex-col">
-              <span className="font-heading text-xl tracking-wider uppercase text-white">D'RENTALS</span>
-              <span className="text-xs text-zinc-400 font-mono tracking-tight">by Penmen Studios</span>
+              <span className="font-heading text-xl tracking-wider uppercase text-white group-hover:text-red-500 transition-colors">D&apos;RENTALS</span>
+              <span className="text-xs text-zinc-400 font-mono tracking-tight group-hover:text-zinc-300 transition-colors">by Penmen Studios</span>
             </div>
           </Link>
 
@@ -100,12 +100,15 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "text-zinc-400 hover:text-white transition-colors text-sm uppercase tracking-wider font-body font-bold",
-                  isActive(link.href) && "text-white border-b-2 border-red-500 pb-1",
+                  "relative text-zinc-400 hover:text-white transition-colors text-sm uppercase tracking-wider font-body font-bold py-1",
+                  isActive(link.href) && "text-white"
                 )}
                 onClick={() => pathname === link.href && scrollToTop()}
               >
                 {link.label}
+                {isActive(link.href) && (
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-red-500 animate-in-fade" />
+                )}
               </Link>
             ))}
           </nav>
@@ -163,7 +166,7 @@ export default function Header() {
         <div className="mt-auto mb-8 border-t border-zinc-800 pt-6">
           <div className="flex flex-col items-center gap-4 text-center">
             <div>
-              <span className="font-heading text-lg text-white">D'RENTALS</span>
+              <span className="font-heading text-lg text-white">D&apos;RENTALS</span>
             </div>
             <p className="text-zinc-400 text-sm font-mono">
               Professional cinema equipment rental

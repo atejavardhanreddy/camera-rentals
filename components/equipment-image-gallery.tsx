@@ -17,13 +17,13 @@ export default function EquipmentImageGallery({
   // Default placeholder for missing images
   const placeholderImage = "/placeholder.svg?height=600&width=800"
 
-  const [activeImage, setActiveImage] = useState(mainImage || additionalImages[0]?.image_url || placeholderImage)
+  const [activeImage, setActiveImage] = useState(mainImage || additionalImages[0]?.imageUrl || placeholderImage)
   const [imageLoadError, setImageLoadError] = useState(false)
 
   const allImages = [
-    ...(mainImage ? [{ id: 0, image_url: mainImage, alt_text: "Main image", display_order: 0 }] : []),
+    ...(mainImage ? [{ id: 0, imageUrl: mainImage, altText: `Main view of professional cinema equipment`, displayOrder: 0 }] : []),
     ...additionalImages,
-  ].sort((a, b) => a.display_order - b.display_order)
+  ].sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0))
 
   return (
     <div className="space-y-4">
@@ -36,7 +36,7 @@ export default function EquipmentImageGallery({
         ) : (
           <Image
             src={activeImage || "/placeholder.svg"}
-            alt="Equipment image"
+            alt={allImages.find(img => img.imageUrl === activeImage)?.altText || "Professional cinema camera equipment for rent in Hyderabad"}
             fill
             className="object-contain"
             onError={() => {
@@ -56,15 +56,15 @@ export default function EquipmentImageGallery({
               key={image.id}
               className={cn(
                 "aspect-square relative rounded-none overflow-hidden border border-zinc-800 bg-zinc-800",
-                activeImage === image.image_url && "ring-2 ring-red-500",
+                activeImage === image.imageUrl && "ring-2 ring-red-500",
               )}
               onClick={() => {
-                setActiveImage(image.image_url)
+                setActiveImage(image.imageUrl)
                 setImageLoadError(false)
               }}
-              aria-label={`View ${image.alt_text || "equipment image"}`}
+              aria-label={`View ${image.altText || "equipment image"}`}
             >
-              <ThumbnailImage src={image.image_url || "/placeholder.svg"} alt={image.alt_text || "Equipment image"} />
+              <ThumbnailImage src={image.imageUrl || "/placeholder.svg"} alt={image.altText || "Equipment image"} />
             </button>
           ))}
         </div>

@@ -9,6 +9,7 @@ import Breadcrumb from "@/components/breadcrumb"
 import { generateMetadata } from "@/lib/seo-config"
 import CanonicalUrl from "@/components/canonical-url"
 import type { Metadata } from "next"
+import Script from "next/script"
 
 export const dynamic = "force-dynamic"
 export const revalidate = 0
@@ -38,31 +39,20 @@ export const metadata: Metadata = generateMetadata({
 export default async function EquipmentPage({
   searchParams,
 }: {
-  searchParams: { category?: string }
+  searchParams: { category?: string; kit?: string }
 }) {
   // Disable caching for this page
   unstable_noStore()
 
   const categories = await getCategories()
   const categoryId = searchParams.category ? Number.parseInt(searchParams.category) : undefined
+  const isKit = searchParams.kit === 'true'
 
   // Find the selected category name if a category is selected
   const selectedCategory = categoryId ? categories.find((cat) => cat.id === categoryId) : undefined
 
   return (
     <>
-      {/* Google Tag (gtag.js) */}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-P623CW7HNM"></script>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-P623CW7HNM');
-          `,
-        }}
-      />
       <div className="bg-black min-h-screen">
         {/* Add canonical URL component to ensure filtered pages point to the main equipment page */}
         <CanonicalUrl overridePath="/equipment" />
@@ -84,12 +74,12 @@ export default async function EquipmentPage({
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
               {/* Desktop Sidebar Filters - Hidden on mobile */}
               <div className="hidden lg:block lg:col-span-1">
-                <EquipmentFilters categories={categories} selectedCategory={categoryId} />
+                <EquipmentFilters categories={categories} selectedCategory={categoryId} isKitOnly={isKit} />
               </div>
 
               <div className="lg:col-span-3">
                 <Suspense fallback={<EquipmentSkeleton />}>
-                  <EquipmentList categoryId={categoryId} />
+                  <EquipmentList categoryId={categoryId} isKit={isKit} />
                 </Suspense>
               </div>
             </div>
@@ -100,11 +90,11 @@ export default async function EquipmentPage({
   )
 }
 
-async function EquipmentList({ categoryId }: { categoryId?: number }) {
+async function EquipmentList({ categoryId, isKit }: { categoryId?: number, isKit?: boolean }) {
   // Disable caching for this component
   unstable_noStore()
 
-  const equipment = await getAllEquipment(categoryId)
+  const equipment = await getAllEquipment(categoryId, isKit || undefined)
 
   return <EquipmentGrid equipment={equipment} />
 }

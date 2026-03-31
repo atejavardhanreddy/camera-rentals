@@ -1,23 +1,32 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   images: {
-    domains: [
-      'images.unsplash.com',
-      'loremflickr.com',
-      'picsum.photos',
-      'plus.unsplash.com',
-      'source.unsplash.com'
-    ],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: 'rentals.penmenstudios.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.supabase.co',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.supabase.in',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.amazonaws.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.cloudinary.com',
       },
     ],
     // Enable image optimization

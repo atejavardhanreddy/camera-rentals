@@ -3,6 +3,7 @@ import { MapPin } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import Breadcrumb from "@/components/breadcrumb"
 import type { Metadata } from "next"
+import Script from "next/script"
 
 export const metadata: Metadata = {
   title: "Camera Rental Service Areas | D'RENTALS by Penmen Studios",
@@ -79,18 +80,6 @@ const serviceAreas = [
 export default function AreasPage() {
   return (
     <>
-      {/* Google Tag (gtag.js) */}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-P623CW7HNM"></script>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-P623CW7HNM');
-          `,
-        }}
-      />
       <div className="bg-black min-h-screen">
         <div className="container mx-auto px-4 py-4">
           <Breadcrumb items={[{ label: "Service Areas" }]} />
@@ -118,7 +107,7 @@ export default function AreasPage() {
                   CAMERA RENTAL <span className="text-red-500">SERVICE AREAS</span>
                 </h1>
                 <p className="text-xl text-zinc-300 mb-6 max-w-2xl font-body">
-                  D'RENTALS provides professional camera equipment delivery across Hyderabad and surrounding areas.
+                  D&apos;RENTALS provides professional camera equipment delivery across Hyderabad and surrounding areas.
                   Browse our service locations below.
                 </p>
               </div>
@@ -169,7 +158,7 @@ export default function AreasPage() {
                   </div>
                   <h3 className="font-heading text-xl text-white mb-3">BOOK YOUR EQUIPMENT</h3>
                   <p className="text-zinc-300">
-                    Browse our equipment catalog and contact us to reserve your gear. We'll confirm availability and
+                    Browse our equipment catalog and contact us to reserve your gear. We&apos;ll confirm availability and
                     provide a quote.
                   </p>
                 </div>
@@ -180,7 +169,7 @@ export default function AreasPage() {
                   </div>
                   <h3 className="font-heading text-xl text-white mb-3">SCHEDULE DELIVERY</h3>
                   <p className="text-zinc-300">
-                    Coordinate delivery time and location. We'll arrange for the equipment to be delivered to your
+                    Coordinate delivery time and location. We&apos;ll arrange for the equipment to be delivered to your
                     specified address.
                   </p>
                 </div>
@@ -192,7 +181,7 @@ export default function AreasPage() {
                   <h3 className="font-heading text-xl text-white mb-3">RECEIVE & RETURN</h3>
                   <p className="text-zinc-300">
                     Our team will deliver the equipment and provide a brief overview. When your rental period ends,
-                    we'll arrange for pickup.
+                    we&apos;ll arrange for pickup.
                   </p>
                 </div>
               </div>

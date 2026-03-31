@@ -14,7 +14,6 @@ import type { Metadata } from "next"
 import EquipmentGrid from "@/components/equipment-grid"
 import { Suspense } from "react"
 import { EquipmentSkeleton } from "@/components/skeletons"
-import { unstable_noStore } from "next/cache"
 
 // Generate dynamic metadata for each equipment page
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
@@ -29,20 +28,20 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     })
   }
 
-  const keywords = [
+  const keywords: string[] = [
     equipment.name.toLowerCase(),
     equipment.brand?.toLowerCase(),
     equipment.model?.toLowerCase(),
-    equipment.category_name?.toLowerCase(),
+    equipment.categoryName?.toLowerCase(),
     "camera rental",
     "equipment rental",
     "cinema gear",
     "rent in hyderabad",
     // Add more specific keywords based on equipment type
-    equipment.category_name === "Cameras" ? "video camera rental" : "",
-    equipment.category_name === "Lenses" ? "camera lens rental" : "",
-    equipment.category_name === "Tripods & Supports" ? "gimbal rental" : "",
-  ].filter(Boolean)
+    equipment.categoryName === "Cameras" ? "video camera rental" : "",
+    equipment.categoryName === "Lenses" ? "camera lens rental" : "",
+    equipment.categoryName === "Tripods & Supports" ? "gimbal rental" : "",
+  ].filter((keyword): keyword is string => Boolean(keyword))
 
   // Generate an optimized description using our utility
   const optimizedDescription = generateEquipmentDescription(equipment)
@@ -74,29 +73,17 @@ export default async function EquipmentDetailPage({
 
   const images = await getEquipmentImages(id)
 
-  // Ensure all image URLs are valid
+  // Ensure image URL is valid
   const safeImages = images.map((img) => ({
     ...img,
-    image_url: getSafeImageUrl(img.image_url, 600, 600),
+    imageUrl: getSafeImageUrl(img.imageUrl, 600, 600),
   }))
 
   // Ensure main image URL is valid
-  const safeMainImage = getSafeImageUrl(equipment.main_image_url, 800, 600)
+  const safeMainImage = getSafeImageUrl(equipment.mainImageUrl, 800, 600)
 
   return (
     <>
-      {/* Google Tag (gtag.js) */}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-P623CW7HNM"></script>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-P623CW7HNM');
-          `,
-        }}
-      />
       <div className="bg-black min-h-screen">
         <ProductSchema equipment={equipment} />
 
@@ -129,6 +116,9 @@ export default async function EquipmentDetailPage({
                 {equipment.featured && (
                   <Badge className="bg-red-500 rounded-none font-heading uppercase">Featured</Badge>
                 )}
+                {equipment.isKit && (
+                  <Badge className="bg-purple-600 rounded-none font-heading uppercase">Bundle</Badge>
+                )}
               </div>
 
               <h1 className="text-3xl font-heading mb-2 text-white tracking-wide uppercase">{equipment.name}</h1>
@@ -144,22 +134,22 @@ export default async function EquipmentDetailPage({
                     <div className="p-4 border border-zinc-800 text-center bg-zinc-900 military-border">
                       <p className="text-sm text-zinc-500 uppercase tracking-wider font-mono">Daily</p>
                       <p className="text-base sm:text-lg md:text-xl font-heading text-red-400 break-words">
-                        {formatCurrency(equipment.daily_rate)}
+                        {formatCurrency(equipment.dailyRate)}
                       </p>
                     </div>
-                    {equipment.weekly_rate && (
+                    {equipment.weeklyRate && (
                       <div className="p-4 border border-zinc-800 text-center bg-zinc-900 military-border">
                         <p className="text-sm text-zinc-500 uppercase tracking-wider font-mono">Weekly</p>
                         <p className="text-base sm:text-lg md:text-xl font-heading text-red-400 break-words">
-                          {formatCurrency(equipment.weekly_rate)}
+                          {formatCurrency(equipment.weeklyRate)}
                         </p>
                       </div>
                     )}
-                    {equipment.monthly_rate && (
+                    {equipment.monthlyRate && (
                       <div className="p-4 border border-zinc-800 text-center bg-zinc-900 military-border">
                         <p className="text-sm text-zinc-500 uppercase tracking-wider font-mono">Monthly</p>
                         <p className="text-base sm:text-lg md:text-xl font-heading text-red-400 break-words">
-                          {formatCurrency(equipment.monthly_rate)}
+                          {formatCurrency(equipment.monthlyRate)}
                         </p>
                       </div>
                     )}
@@ -170,6 +160,28 @@ export default async function EquipmentDetailPage({
                     <WhatsAppCTA equipment={equipment} />
                   </div>
                 </div>
+
+                {equipment.isKit && equipment.kitComponents && equipment.kitComponents.length > 0 && (
+                  <>
+                    <Separator className="my-6 bg-zinc-800" />
+                    <div>
+                      <h2 className="text-xl font-heading mb-3 text-white uppercase tracking-wide">Bundle Components</h2>
+                      <div className="grid grid-cols-1 gap-2">
+                        {equipment.kitComponents.map((component: any) => (
+                          <div key={component.id} className="flex justify-between items-center p-3 bg-zinc-900/50 border border-zinc-800">
+                             <div className="flex flex-col">
+                                <span className="text-white font-mono text-sm">{component.item?.name}</span>
+                                <span className="text-zinc-500 font-mono text-[10px] uppercase">{component.item?.model}</span>
+                             </div>
+                             <div className="px-3 py-1 bg-zinc-800 border border-zinc-700 text-red-400 font-mono text-xs">
+                               x{component.quantity}
+                             </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                )}
 
                 <Separator className="my-6 bg-zinc-800" />
 
@@ -202,7 +214,7 @@ export default async function EquipmentDetailPage({
           <div className="py-12">
             <h2 className="text-3xl font-heading text-red-500 tracking-wide uppercase mb-6">Related Equipment</h2>
             <Suspense fallback={<EquipmentSkeleton />}>
-              <RelatedEquipmentList currentEquipmentId={equipment.id} categoryId={equipment.category_id} />
+              <RelatedEquipmentList currentEquipmentId={equipment.id} categoryId={equipment.categoryId} />
             </Suspense>
           </div>
         </div>
@@ -215,8 +227,7 @@ async function RelatedEquipmentList({
   currentEquipmentId,
   categoryId,
 }: { currentEquipmentId: number; categoryId: number }) {
-  unstable_noStore()
-  const relatedEquipment = await getRelatedEquipment(currentEquipmentId, categoryId, 3) // Fetch 3 related items
+  const relatedEquipment = await getRelatedEquipment(currentEquipmentId, categoryId, 3)
 
   if (relatedEquipment.length === 0) {
     return (

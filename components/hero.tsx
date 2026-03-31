@@ -12,7 +12,7 @@ export default function Hero() {
             <span className="text-red-400 font-mono text-sm tracking-widest">CAMERA RENTALS IN HYDERABAD</span>
           </div>
           <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl text-white mb-6 tracking-wide leading-tight">
-            <span className="text-red-500">D'RENTALS</span> CINEMA EQUIPMENT
+            <span className="text-red-500">D&apos;RENTALS</span> CINEMA EQUIPMENT
           </h1>
           <p className="text-xl text-zinc-300 mb-10 max-w-2xl font-body">
             Access professional cinema cameras, DSLRs, 4K cameras, RED cameras, GoPro cameras, lenses, and accessories

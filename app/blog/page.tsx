@@ -6,6 +6,7 @@ import Breadcrumb from "@/components/breadcrumb"
 import { generateMetadata } from "@/lib/seo-config"
 import type { Metadata } from "next"
 import SafeImage from "@/components/safe-image"
+import Script from "next/script"
 
 export const metadata: Metadata = generateMetadata({
   title: "Blog & Resources | Camera Rental Tips",
@@ -33,18 +34,6 @@ export default async function BlogPage() {
 
   return (
     <>
-      {/* Google Tag (gtag.js) */}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-P623CW7HNM"></script>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-P623CW7HNM');
-          `,
-        }}
-      />
       <div className="bg-black min-h-screen">
         <div className="container mx-auto px-4 py-4">
           <Breadcrumb items={[{ label: "Blog" }]} />
@@ -70,7 +59,7 @@ export default async function BlogPage() {
                   <span className="text-red-400 font-mono text-sm tracking-widest">OUR INSIGHTS</span>
                 </div>
                 <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl text-white mb-6 tracking-wide leading-tight">
-                  D'RENTALS <span className="text-red-500">BLOG</span>
+                  D&apos;RENTALS <span className="text-red-500">BLOG</span>
                 </h1>
                 <p className="text-xl text-zinc-300 mb-6 max-w-2xl font-body">
                   Stay updated with expert tips, guides, and industry insights on camera equipment and filmmaking.

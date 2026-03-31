@@ -85,7 +85,7 @@ export default function ContactForm() {
         </div>
         <h3 className="font-heading text-2xl text-white mb-4">MESSAGE RECEIVED</h3>
         <p className="text-zinc-300 mb-6 font-body">
-          Thank you for contacting D'RENTALS. Our team will review your message and get back to you shortly.
+          Thank you for contacting D&apos;RENTALS. Our team will review your message and get back to you shortly.
         </p>
         <Button onClick={() => setIsSubmitted(false)} className="bg-red-500 hover:bg-red-600 text-white font-heading">
           SEND ANOTHER MESSAGE

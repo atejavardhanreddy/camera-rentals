@@ -62,7 +62,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Generate URLs for individual equipment detail pages
   const equipmentDetailRoutes = equipment.map((item) => ({
     url: getCanonicalUrl(`/equipment/${item.id}-${slugify(item.name)}`), // Include slugified name
-    lastModified: new Date(item.updated_at), // Use the equipment's last updated timestamp
+    lastModified: new Date(item.updatedAt as Date), // Use the equipment's last updated timestamp
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }))
@@ -92,8 +92,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ].map((area) => ({
     url: getCanonicalUrl(`/areas/${area}`),
     lastModified: new Date(), // Assuming area pages don't have individual last modified dates
-    changeFrequency: "weekly" as const,
-    priority: 0.8,
+    changeFrequency: "daily" as const, // Area pages are high-value for local SEO
+    priority: 0.9,
   }))
 
   // Generate URLs for individual blog post detail pages

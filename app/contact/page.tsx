@@ -3,6 +3,7 @@ import { Mail, MapPin, Phone } from "lucide-react"
 import ContactForm from "@/components/contact-form"
 import Breadcrumb from "@/components/breadcrumb"
 import { generateMetadata, generateViewport } from "@/lib/seo-config"
+import Script from "next/script"
 
 // Add viewport export
 export const viewport: Viewport = generateViewport()
@@ -27,18 +28,6 @@ export const metadata: Metadata = generateMetadata({
 export default function ContactPage() {
   return (
     <>
-      {/* Google Tag (gtag.js) */}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-P623CW7HNM"></script>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-P623CW7HNM');
-          `,
-        }}
-      />
       <div className="bg-black min-h-screen">
         <div className="container mx-auto px-4 py-4">
           <Breadcrumb items={[{ label: "Contact" }]} />

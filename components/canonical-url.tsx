@@ -16,8 +16,8 @@ export default function CanonicalUrl({ overridePath }: { overridePath?: string }
 
   useEffect(() => {
     const path = overridePath || pathname
-    setCanonicalUrl(getCanonicalUrl(path, searchParams))
-  }, [pathname, overridePath, searchParams])
+    setCanonicalUrl(getCanonicalUrl(path))
+  }, [pathname, overridePath])
 
   if (!canonicalUrl) return null
 

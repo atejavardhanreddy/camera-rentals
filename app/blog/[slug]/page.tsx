@@ -2,6 +2,7 @@ import { getBlogPostBySlug } from "@/lib/data"
 import { notFound } from "next/navigation"
 import Breadcrumb from "@/components/breadcrumb"
 import Link from "next/link"
+import Script from "next/script"
 
 interface BlogPostPageProps {
   params: {
@@ -19,8 +20,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <>
       {/* Google Tag (gtag.js) */}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-P623CW7HNM"></script>
-      <script
+      {/* Google Tag (gtag.js) */}
+      <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-P623CW7HNM" />
+      <Script
+        id="google-analytics"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];

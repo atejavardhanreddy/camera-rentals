@@ -4,6 +4,7 @@ import { Separator } from "@/components/ui/separator"
 import SafeImage from "@/components/safe-image"
 import Breadcrumb from "@/components/breadcrumb"
 import { generateMetadata, generateViewport } from "@/lib/seo-config"
+import Script from "next/script"
 
 // Add viewport export
 export const viewport: Viewport = generateViewport()
@@ -34,18 +35,6 @@ export const metadata: Metadata = generateMetadata({
 export default function AboutPage() {
   return (
     <>
-      {/* Google Tag (gtag.js) */}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-P623CW7HNM"></script>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-P623CW7HNM');
-          `,
-        }}
-      />
       <div className="bg-black min-h-screen">
         <div className="container mx-auto px-4 py-4">
           <Breadcrumb items={[{ label: "About" }]} />
@@ -71,7 +60,7 @@ export default function AboutPage() {
                   <span className="text-red-400 font-mono text-sm tracking-widest">ABOUT US</span>
                 </div>
                 <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl text-white mb-6 tracking-wide leading-tight">
-                  THE <span className="text-red-500">D'RENTALS</span> STORY
+                  THE <span className="text-red-500">D&apos;RENTALS</span> STORY
                 </h1>
               </div>
             </div>
@@ -93,7 +82,7 @@ export default function AboutPage() {
               <div>
                 <h2 className="font-heading text-3xl text-white mb-6 tracking-wide">OUR MISSION</h2>
                 <p className="text-zinc-300 mb-6 font-body">
-                  D'RENTALS by Penmen Studios was established with a clear vision: to provide filmmakers and content
+                  D&apos;RENTALS by Penmen Studios was established with a clear vision: to provide filmmakers and content
                   creators with access to professional-grade cinema equipment without the prohibitive costs of
                   ownership.
                 </p>
@@ -113,9 +102,9 @@ export default function AboutPage() {
             <Separator className="my-16 bg-zinc-800" />
 
             <div className="text-center mb-16">
-              <h2 className="font-heading text-3xl text-white mb-6 tracking-wide">WHY CHOOSE D'RENTALS</h2>
+              <h2 className="font-heading text-3xl text-white mb-6 tracking-wide">WHY CHOOSE D&apos;RENTALS</h2>
               <p className="text-zinc-300 max-w-3xl mx-auto font-body">
-                At D'RENTALS, we combine technical expertise with a passion for filmmaking. Our commitment to quality
+                At D&apos;RENTALS, we combine technical expertise with a passion for filmmaking. Our commitment to quality
                 and service sets us apart in the industry.
               </p>
             </div>

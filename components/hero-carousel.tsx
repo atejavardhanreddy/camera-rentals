@@ -39,49 +39,58 @@ export default function HeroCarousel({ equipment }: HeroCarouselProps) {
   }
 
   const currentEquipment = equipment[currentIndex]
-  const imageUrl = getSafeImageUrl(currentEquipment.main_image_url, 1440, 600)
+  const imageUrl = getSafeImageUrl(currentEquipment.mainImageUrl, 1440, 600)
 
   return (
-    <div className="relative w-full max-w-[1440px] mx-auto overflow-hidden bg-black aspect-[16/9] min-h-[400px] md:aspect-[16/7] lg:aspect-[16/6]">
-      <div className="absolute inset-0">
+    <div className="relative w-full max-w-[1440px] mx-auto overflow-hidden bg-black aspect-[16/9] min-h-[400px] md:aspect-[16/7] lg:aspect-[16/6] group/carousel">
+      <div className="absolute inset-0 overflow-hidden">
         <Image
+          key={currentIndex}
           src={imageUrl || "/placeholder.svg"}
           alt={`${currentEquipment.brand} ${currentEquipment.name}`}
           fill
           priority={true}
-          className="object-cover object-center transition-opacity duration-1000 ease-in-out"
+          className="object-cover object-center transition-transform duration-[10000ms] ease-out scale-110 group-hover/carousel:scale-100 animate-in-fade"
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 75vw, 1440px"
           quality={85}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent hidden md:block"></div>
+      </div>
+
+      {/* Progress Bar */}
+      <div className="absolute top-0 left-0 w-full h-1 z-30 opacity-60">
+        <div 
+          key={currentIndex}
+          className="h-full bg-red-500 origin-left"
+          style={{ animation: 'carouselProgress 5s linear forwards' }}
+        />
       </div>
 
       {/* Adjusted top padding (pt-*) and vertical alignment (justify-center md:justify-end) */}
       <div className="relative z-10 flex flex-col items-start justify-center h-full px-4 pb-4 pt-20 sm:px-6 sm:pb-6 sm:pt-24 md:px-10 md:pb-10 md:pt-28 lg:px-16 lg:pb-16 lg:pt-36 md:justify-end">
-        <div className="max-w-3xl text-white">
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-7xl mb-2 sm:mb-4 leading-tight">
-            <span className="bg-red-500 text-white px-2 py-1 text-sm sm:text-base md:text-lg font-bold mb-1 sm:mb-2 inline-block">
+        <div className="max-w-3xl text-white animate-in-slide-up">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-7xl mb-4 sm:mb-6 leading-tight text-shadow">
+            <span className="bg-red-600 text-white px-3 py-1 text-sm sm:text-base md:text-lg font-bold mb-2 inline-block tracking-tighter">
               {currentEquipment.brand}
             </span>
-            <br /> {/* New line for the item name */}
-            <span className="text-white inline-block">{currentEquipment.name}</span>
+            <br />
+            <span className="text-white inline-block drop-shadow-2xl">{currentEquipment.name}</span>
           </h2>
-          {/* Removed the description paragraph */}
+          
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Button
               asChild
-              size="default" // Changed from "lg"
-              className="bg-red-500 hover:bg-red-600 text-white rounded-none px-5 py-3 text-sm font-heading" // Adjusted padding and text size
+              className="bg-red-500 hover:bg-red-600 text-white rounded-none px-8 py-6 text-sm font-heading btn-sweep"
             >
               <Link href={`/equipment/${currentEquipment.id}`}>VIEW DETAILS</Link>
             </Button>
             <Button
               asChild
-              size="default" // Changed from "lg"
               variant="outline"
-              className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white rounded-none px-5 py-3 text-sm font-heading bg-transparent" // Adjusted padding and text size
+              className="border-white/20 text-white hover:bg-white hover:text-black rounded-none px-8 py-6 text-sm font-heading bg-zinc-900/80 transition-all"
             >
-              <Link href="/equipment">VIEW ALL EQUIPMENT</Link>
+              <Link href="/equipment">BROWSE ALL</Link>
             </Button>
           </div>
         </div>

@@ -1,0 +1,29 @@
+# Ignore everything by default for efficiency
+node_modules/
+.git/
+
+# Ignore local build artifacts
+/android
+/ios
+/dist
+/build
+/web-build
+
+# Ignore local configuration and logs
+.expo/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.pem
+*.tsbuildinfo
+
+# Ignore debug logs
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# Ignore local environment files
+.env*.local
+.env

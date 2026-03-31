@@ -135,6 +135,16 @@ export function getCanonicalUrl(path = ""): string {
   return `${siteConfig.url}${pathWithoutQuery}`
 }
 
+interface MetadataProps {
+  title?: string
+  description?: string
+  keywords?: string | string[]
+  path?: string
+  ogTitle?: string
+  ogDescription?: string
+  alternateUrls?: Record<string, string>
+}
+
 // Helper function to generate metadata for each page
 export function generateMetadata({
   title,
@@ -144,7 +154,7 @@ export function generateMetadata({
   ogTitle,
   ogDescription,
   alternateUrls = {},
-}): Metadata {
+}: MetadataProps): Metadata {
   const fullTitle = title ? `${title} | D'RENTALS by Penmen Studios` : siteConfig.name
 
   // Process the description to ensure it's optimized
@@ -268,12 +278,12 @@ export function generateLocalBusinessSchema() {
 }
 
 // Generate JSON-LD structured data for products (equipment)
-export function generateProductSchema(equipment) {
+export function generateProductSchema(equipment: any) {
   return {
     "@context": "https://schema.org",
     "@type": "Product",
     name: equipment.name,
-    image: equipment.main_image_url,
+    image: equipment.mainImageUrl,
     description: equipment.description,
     brand: {
       "@type": "Brand",
@@ -281,7 +291,7 @@ export function generateProductSchema(equipment) {
     },
     offers: {
       "@type": "Offer",
-      price: equipment.daily_rate,
+      price: equipment.dailyRate,
       priceCurrency: "INR",
       availability: equipment.status === "available" ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
       seller: {

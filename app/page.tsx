@@ -7,9 +7,9 @@ import { unstable_noStore } from "next/cache"
 import { generateMetadata } from "@/lib/seo-config"
 import type { Metadata } from "next"
 import { Award, Users, Clock, Truck } from "lucide-react" // Added Truck icon
+import Script from "next/script"
 
 export const dynamic = "force-dynamic"
-export const revalidate = 0
 
 // Update the metadata for the home page with more targeted keywords and optimized description
 export const metadata: Metadata = generateMetadata({
@@ -45,18 +45,6 @@ export default async function Home() {
 
   return (
     <>
-      {/* Google Tag (gtag.js) */}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-P623CW7HNM"></script>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-P623CW7HNM');
-          `,
-        }}
-      />
       <div className="bg-black min-h-screen">
         <HeroCarousel equipment={featuredEquipment} /> {/* New: Hero Carousel at the top */}
         <CategoryList categories={categories} />
@@ -67,7 +55,7 @@ export default async function Home() {
         <section className="py-16 bg-black">
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-between mb-10">
-              <h2 className="font-heading text-3xl text-red-500 tracking-wide">WHY CHOOSE D'RENTALS</h2>
+              <h2 className="font-heading text-3xl text-red-500 tracking-wide">WHY CHOOSE D&apos;RENTALS</h2>
               <div className="h-px bg-red-500 flex-grow ml-6"></div>
             </div>
 
@@ -110,7 +98,7 @@ export default async function Home() {
                 </div>
                 <h3 className="font-heading text-xl text-white mb-3 text-center">FLEXIBLE RENTALS</h3>
                 <p className="text-zinc-400 text-center font-body">
-                  Choose from daily, weekly, or monthly rental options to suit your project's duration and budget.
+                  Choose from daily, weekly, or monthly rental options to suit your project&apos;s duration and budget.
                 </p>
               </div>
             </div>

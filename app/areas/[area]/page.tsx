@@ -13,6 +13,7 @@ import type { Metadata } from "next"
 
 // Import the area description generator
 import { generateAreaDescription } from "@/lib/meta-description"
+import { FAQSchema } from "@/components/structured-data"
 
 export const dynamic = "force-dynamic"
 export const revalidate = 0
@@ -696,19 +697,8 @@ export default async function AreaPage({ params }: { params: { area: string } })
 
   return (
     <>
-      {/* Google Tag (gtag.js) */}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-P623CW7HNM"></script>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-P623CW7HNM');
-          `,
-        }}
-      />
       <div className="bg-black min-h-screen">
+        <FAQSchema faqs={content.faqs} />
         <div className="container mx-auto px-4 py-4">
           <Breadcrumb items={[{ label: "Areas", href: "/areas" }, { label: formattedArea }]} />
 
@@ -807,7 +797,7 @@ export default async function AreaPage({ params }: { params: { area: string } })
 
                 <div className="mb-10">
                   <h2 className="text-3xl font-heading text-red-500 tracking-wide uppercase mb-6">
-                    Why Choose D'RENTALS in {formattedArea}
+                    Why Choose D&apos;RENTALS in {formattedArea}
                   </h2>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

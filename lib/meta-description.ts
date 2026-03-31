@@ -7,20 +7,20 @@ const MAX_META_DESCRIPTION_LENGTH = 160
 
 // Base descriptions for different page types
 const baseDescriptions = {
-  home: "Rent professional cinema cameras, DSLRs, 4K cameras, lenses, and accessories in Hyderabad. Serving Kukatpally, Dilsukhnagar and all areas with quality equipment.",
+  home: "Verified camera rentals in Hyderabad. Rent professional cinema cameras, lenses, and 4K gear. Best price guaranteed with fast same-day delivery across Hyderabad.",
   equipment:
-    "Browse our extensive collection of professional cinema equipment available for rent in Hyderabad. Find cameras, lenses, lighting, and audio gear for your production.",
+    "Explore the best collection of verified professional cinema equipment for rent in Hyderabad. Top-rated cameras, lenses, and lighting with technical support.",
   equipmentDetail:
-    "Rent the {name} from D'RENTALS in Hyderabad. Professional {category} with flexible rental periods and delivery options. Book now!",
+    "Rent the {name} from D'RENTALS in Hyderabad. Professional {category} with verified quality, flexible rental periods, and fast delivery. Book now!",
   category:
-    "Rent professional {category} equipment in Hyderabad. Browse our selection of {category} gear available for daily, weekly, or monthly rental.",
+    "Best professional {category} equipment for rent in Hyderabad. Browse our curated selection of high-end {category} gear. Daily & weekly rates.",
   brand:
-    "Rent {brand} cinema equipment in Hyderabad. Professional {brand} cameras, lenses, and accessories with delivery across Telangana.",
-  area: "Camera rental services in {area}, Hyderabad. Professional cinema equipment delivered to your location with flexible rental options.",
+    "Rent official {brand} cinema equipment in Hyderabad. Verified {brand} cameras and lenses with expert technical support and fast delivery.",
+  area: "Top-rated camera rental in {area}, Hyderabad. Professional cinema equipment delivered to your location. Fast, reliable, and verified gear.",
   about:
-    "Learn about D'RENTALS by Penmen Studios, Hyderabad's premier camera rental service. Professional cinema equipment for filmmakers and content creators.",
+    "Discover D'RENTALS by Penmen Studios - Hyderabad's premier verified camera rental service. Professional gear for top filmmakers and creators.",
   contact:
-    "Contact D'RENTALS for camera and equipment rental inquiries in Hyderabad. Get in touch for availability, pricing, and delivery information.",
+    "Get an instant quote for camera rental in Hyderabad. Contact D'RENTALS for availability, pricing, and fast delivery information. Book today!",
 }
 
 /**
@@ -56,9 +56,9 @@ export function truncateDescription(description: string): string {
 export function generateEquipmentDescription(equipment: {
   name: string
   brand?: string | null
-  category_name?: string
+  categoryName?: string
   description?: string | null
-  daily_rate?: number
+  dailyRate?: number
 }): string {
   if (equipment.description && equipment.description.length > 50) {
     // If the equipment has a good description, use it as a base
@@ -68,11 +68,11 @@ export function generateEquipmentDescription(equipment: {
   // Otherwise, generate a description based on equipment details
   let template = baseDescriptions.equipmentDetail
   template = template.replace("{name}", `${equipment.brand || ""} ${equipment.name}`.trim())
-  template = template.replace("{category}", equipment.category_name || "cinema equipment")
+  template = template.replace("{category}", equipment.categoryName || "cinema equipment")
 
   // Add pricing if available
-  if (equipment.daily_rate) {
-    const priceInfo = ` Available from ₹${equipment.daily_rate}/day.`
+  if (equipment.dailyRate) {
+    const priceInfo = ` Available from ₹${equipment.dailyRate}/day.`
 
     // Check if adding price info would exceed max length
     if ((template + priceInfo).length <= MAX_META_DESCRIPTION_LENGTH) {

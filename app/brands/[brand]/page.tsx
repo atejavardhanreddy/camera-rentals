@@ -6,6 +6,7 @@ import { unstable_noStore } from "next/cache"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import Breadcrumb from "@/components/breadcrumb"
+import Script from "next/script"
 
 // Import the brand description generator
 import { generateBrandDescription } from "@/lib/meta-description"
@@ -40,8 +41,11 @@ export default async function BrandPage({ params }: BrandPageProps) {
   return (
     <>
       {/* Google Tag (gtag.js) */}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-P623CW7HNM"></script>
-      <script
+      {/* Google Tag (gtag.js) */}
+      <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-P623CW7HNM" />
+      <Script
+        id="google-analytics"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];

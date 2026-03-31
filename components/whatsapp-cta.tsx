@@ -17,7 +17,7 @@ export default function WhatsAppCTA({ equipment }: WhatsAppCTAProps) {
 *Item:* ${equipment.name}
 *Brand:* ${equipment.brand || "N/A"}
 *Model:* ${equipment.model || "N/A"}
-*Daily Rate:* ${formatCurrency(equipment.daily_rate)}
+*Daily Rate:* ${formatCurrency(equipment.dailyRate)}
 
 Hello, I'm interested in renting this equipment from D'RENTALS. Please provide information about availability and booking process. Thank you.`
 
@@ -34,10 +34,14 @@ Hello, I'm interested in renting this equipment from D'RENTALS. Please provide i
   return (
     <Button
       onClick={generateWhatsAppMessage}
-      className="w-full bg-green-600 hover:bg-green-700 text-white rounded-none px-8 py-6 text-base font-heading flex items-center justify-center gap-2"
+      className="w-full bg-green-600 hover:bg-green-700 text-white rounded-none px-8 py-7 text-sm font-heading flex items-center justify-center gap-3 tracking-widest transition-all duration-300 btn-sweep shadow-float relative"
     >
+      <div className="absolute -top-1 -right-1 flex h-3 w-3">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+        <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+      </div>
       <MessageSquare className="h-5 w-5" />
-      INQUIRE VIA WHATSAPP
+      ENQUIRE VIA WHATSAPP
     </Button>
   )
 }
